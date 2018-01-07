@@ -21,7 +21,8 @@ function loadLevels() {
 
 const scale = 30;
 const maxStep = 0.05;
-const wobbleSpeed = 8, wobbleDist = 0.07;
+const wobbleSpeed = 8,
+  wobbleDist = 0.07;
 const playerXSpeed = 7;
 const gravity = 30;
 const jumpSpeed = 17;
@@ -47,10 +48,10 @@ class DOMDisplay {
   drawBackground() {
     var table = elt("table", "background");
     table.style.width = this.level.width * scale + "px";
-    this.level.grid.forEach(function(row) {
+    this.level.grid.forEach(function (row) {
       var rowElt = table.appendChild(elt("tr"));
       rowElt.style.height = scale + "px";
-      row.forEach(function(type) {
+      row.forEach(function (type) {
         rowElt.appendChild(elt("td", type));
       });
     });
@@ -101,15 +102,17 @@ class DOMDisplay {
     var margin = width / 3;
 
     // The viewport
-    var left = this.wrap.scrollLeft, right = left + width;
-    var top = this.wrap.scrollTop, bottom = top + height;
+    var left = this.wrap.scrollLeft,
+      right = left + width;
+    var top = this.wrap.scrollTop,
+      bottom = top + height;
 
     var player = this.level.player;
     if (!player) {
       return;
     }
     var center = player.pos.plus(player.size.times(0.5))
-                   .times(scale);
+      .times(scale);
 
     if (center.x < left + margin)
       this.wrap.scrollLeft = center.x - margin;
@@ -126,10 +129,15 @@ class DOMDisplay {
   }
 }
 
-var arrowCodes = {37: "left", 38: "up", 39: "right"};
+var arrowCodes = {
+  37: "left",
+  38: "up",
+  39: "right"
+};
 
 function trackKeys(codes) {
   var pressed = Object.create(null);
+
   function handler(event) {
     if (codes.hasOwnProperty(event.keyCode)) {
       var down = event.type == "keydown";
@@ -144,6 +152,7 @@ function trackKeys(codes) {
 
 function runAnimation(frameFunc) {
   var lastTime = null;
+
   function frame(time) {
     var stop = false;
     if (lastTime != null) {
@@ -182,7 +191,7 @@ function initGameObjects() {
 
   initGameObjects.isInit = true;
 
-  Level.prototype.act = function(step, keys) {
+  Level.prototype.act = function (step, keys) {
     if (this.status !== null) {
       this.finishDelay -= step;
     }
